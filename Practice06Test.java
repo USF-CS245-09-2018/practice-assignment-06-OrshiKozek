@@ -26,9 +26,16 @@ public class Practice06Test {
 	
 	public boolean isPalindrome(String item) {
 		clearData();
+		item = item.toLowerCase();
+		item = item.replaceAll("[^a-zA-Z]", "");
 		for (int i = 0; i < item.length(); i++) {
-			stack.push(item.substring(i, i+1));
-			queue.enqueue(item.substring(i, i+1));
+		    String ch1 = item.substring(i, i+1);
+            stack.push(ch1);
+            queue.enqueue(ch1);
+
+
+
+
 		}
 
 		while (! stack.empty() && ! queue.empty()) {
