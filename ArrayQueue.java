@@ -1,5 +1,5 @@
 public class ArrayQueue implements Queue{
-
+//FIFO
     public static Object[] arr;
     public static int head;
     public static int tail;
@@ -7,20 +7,20 @@ public class ArrayQueue implements Queue{
     public ArrayQueue(){
         arr = new Object[10];
         head = 0;
-        tail = 0;
+        tail = -1;
     }
 
 
     @Override
-    public Object dequeue() throws Exception {
+    public Object dequeue() {
         //idk if this one is done
         if (empty()) {
-            throw new Exception("Empty");
+            return null;
         } else {
 
             Object item = arr[head];
 
-            head = head % arr.length;
+            head = head % arr.length + 1;
 
             return item;
         }
@@ -28,16 +28,18 @@ public class ArrayQueue implements Queue{
 
     @Override
     public void enqueue(Object item) {
-        if(tail+1 % arr.length == head)
+        if (tail == arr.length-1) //if the tail is the last index, grow the array
             grow_array();
-        arr[tail++] = item;
-        if (tail >= arr.length)
-            tail = 0;
+
+        tail++;
+
+        arr[tail] = item;
+
     }
 
     @Override
     public boolean empty() {
-        if(head == tail)
+        if(head > tail)
             return true;
 
         return false;
@@ -45,29 +47,35 @@ public class ArrayQueue implements Queue{
 
 
     public void grow_array(){
-        //with while loops
+
         Object[] newArray = new Object[arr.length*2];
-        int index = head;
-        int i = 0;
-        while(index < arr.length){
-            newArray[i++] = arr[index++];
+
+        int index = head; // index is the index of the objects in arr
+        int i = 0; //i is the index of newArray
+
+        //copy data from arr to newArray
+        while(index <= tail){ //keeps going until the tail is reached
+            arr[index] = newArray[i]; //sets the given element of arr to the next empty space in newArray
+            index++;
+            i++;
         }
-        index = 0;
-        while(index < head){
-            newArray[i++] = arr[index++];
-        }
+        //set old array reference to the new array
         arr = newArray;
 
-        //alternately, with for loop
 
+//        //with while loops
 //        Object[] newArray = new Object[arr.length*2];
-//        tail = 0;
-//        for(int i = head; i < arr.length; i++){
-//            newArray[tail++] = arr[i%arr.length];
+//        int index = head;
+//        int i = 0;
+//        while(index < arr.length){
+//            newArray[i++] = arr[index++];
 //        }
-//        head = 0;
+//        index = 0;
+//        while(index < head){
+//            newArray[i++] = arr[index++];
+//        }
 //        arr = newArray;
-//
+
     }
 
 }
