@@ -61,21 +61,6 @@ public class ArrayQueue implements Queue{
         }
         //set old array reference to the new array
         arr = newArray;
-
-
-//        //with while loops
-//        Object[] newArray = new Object[arr.length*2];
-//        int index = head;
-//        int i = 0;
-//        while(index < arr.length){
-//            newArray[i++] = arr[index++];
-//        }
-//        index = 0;
-//        while(index < head){
-//            newArray[i++] = arr[index++];
-//        }
-//        arr = newArray;
-
     }
 
 }
